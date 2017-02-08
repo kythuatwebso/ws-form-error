@@ -2,8 +2,9 @@
 This is plugin check error for form. FORM request with ajax.
 
 #### USING:
-
+````
 $('#myDiv').wsFormError();
+````
 
 #### OPTIONS:
 ```
