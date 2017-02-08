@@ -9,9 +9,9 @@ $('#myDiv').wsFormError();
 #### OPTIONS:
 ```
 $('#myDiv').wsFormError({
-    enable: true, // on-off plugin - Default: true
-    select: "input, textarea", // Type input of form
-    message: true // on-off notification error - Default: false
+    enable: true, //on-off plugin - Default: true
+    select: "input, textarea", //Type input of form
+    message: true //on-off notification error - Default: false
 });
 ```
 #### TUTORIAL:
