@@ -21,7 +21,7 @@ To using this plugin, you add class "ws-required" in input,textarea.....
 - Check Email: you add class to input,textarea "ws-required-email"
 
 #### NOTIFICATION:
-To set content notification error of plugin you add attribute:
+To set content notification error of plugin you add html tags:
 - data-wserror-xx="content message notification error" (xx: phone, email, number)
 
 example:
