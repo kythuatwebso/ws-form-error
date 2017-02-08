@@ -1,9 +1,10 @@
 (function($) {
     $.fn.wsFormError = function(options) {
-        var selector = this.selector;
-        var error    = 0;
-        var mess     = '';
-        var opts = $.extend({
+
+        var selector = this.selector,
+            error    = 0,
+            mess     = '',
+        opts = $.extend({
             enable: true,
             select: 'input',
             message: false
