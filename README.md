@@ -23,3 +23,8 @@ To using this plugin, you add class "ws-required" in input,textarea.....
 #### NOTIFICATION:
 To set content notification error of plugin you add attribute:
 - data-wserror-xx="content message notification error" (xx: phone, email, number)
+
+example:
+```
+<input type="text" name="phone" class="ws-required ws-required-phone" data-wserror-phone="Please enter number phone" />
+```
