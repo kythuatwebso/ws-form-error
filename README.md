@@ -6,11 +6,15 @@ This is plugin check error for form. FORM request with ajax.
 $('#myDiv').wsFormError();
 ````
 
-#### OPTIONS:
+#### CUSTOM:
 ```
-$('#myDiv').wsFormError({
-    enable: true, //on-off plugin - Default: true
-    notification: true //on-off notification error - Default: false
+$("#myDiv").wsFormError({
+    notification: true,
+    callback: function(data) {
+        if (data == 0) {
+            // your task
+        }
+    }
 });
 ```
 #### TUTORIAL:
