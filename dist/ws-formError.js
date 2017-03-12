@@ -6,24 +6,32 @@
 (function($) {
     $.fn.wsFormError = function(options) {
 
-        // Khai Bao
+        // KHAI BAO CAC THONG SO BAN DAU
         var selector = this.selector,
             error    = 0,
             message  = '',
         opts = $.extend({
             enable: true,
+            debug: false,
             notification: false
         }, options);
 
+        // TIM TRONG BODY XEM CO CLASS KHOI TAO KHONG?
         if ($('body').find(this).length) {
+
+            // KIEM TRA XEM TUY CHON "ENABLE" CO PHAI LA KIEU BOOL KHONG
             if (typeof(opts.enable) !== "boolean") {
                 console.warn('option (enable) is not type boolean !');
                 return;
             }
+
+            // KIEM TRA XEM TUY CHON "NOTIFICATION" CO PHAI LA KIEU BOOL KHONG
             if (typeof(opts.notification) !== "boolean") {
                 console.warn('option (message) is not type boolean !');
                 return;
             }
+
+            // FUNCTION HIEN THI THONG BAO
             var viewMessage = function(message) {
                 if (message != "") {
                     return '<span class="wserror-message"'
@@ -42,23 +50,31 @@
                             +'">'+message+'</span>';
                 }
             }
+
+            // HAM CHECK EMAIL
             var isEmail = function(emailAddress) {
                 var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
                 return pattern.test(emailAddress);
             }
+
+            // HAM CHECK KIEU SO
             var isNumber = function(n) {
                 return !isNaN(parseFloat(n)) && isFinite(n);
             }
+
+            // TRUONG HOP ENABLE PLUGIN
             if (opts.enable) {
-                // Enable Plugin
-                $(selector).find('input,textarea,select').each(function() {
+
+                // QUET QUA CAC TAGS HTML TU VUNG CHON XUONG
+                $(selector).find('input,textarea,select').each(function(index, item) {
                     var item     = $(this);
                     var itemval  = item.val();
                     var itemtype = item.prop('nodeName');
+
                     // CHECK EMPTY
                     if (item.hasClass('ws-required')) {
+                        // KIEM TRA XEM VALUE CO KHAC RONG KO? [INPUT,TEXTARE]
                         if (!itemval.length) {
-                            // Require is not null (default check)
                             error = 1;
                             item.addClass('isError');
                             if (typeof(item.data('wserror-null')) !== "undefined") {
@@ -69,8 +85,14 @@
                         } else {
                             item.removeClass('isError');
                         }
+
+                        // HIEN THONG BAO CHUA KHAI BAO CLASS RA CONSOLE
+                    } else if (opts.debug) {
+                        console.log('Not found class [ws-required]. \nPosition: ' + index);
                     }
-                    // CHECK NUMBER
+
+
+                    // KIEM TRA KIEU SO
                     if (item.hasClass('ws-required-number')) {
                         if (!parseFloat(itemval) || !isFinite(itemval)) {
                             // require is number (option check)
@@ -83,7 +105,8 @@
                             item.removeClass('isError');
                         }
                     }
-                    // CHECK EMAIL
+
+                    // KIEM TRA KIEU EMAIL
                     if (item.hasClass('ws-required-email')) {
                         if (!isEmail(itemval)) {
                             // require is email (option check)
@@ -96,7 +119,8 @@
                             item.removeClass('isError');
                         }
                     }
-                    // CHECK PHONE
+
+                    // KIEM TRA KIEU PHONE
                     if (item.hasClass('ws-required-phone')) {
                         if ((itemval.length < 10 || itemval.length > 11) || (!isNumber(itemval))) {
                             // require is phone (option check)
@@ -109,14 +133,16 @@
                             item.removeClass('isError');
                         }
                     }
-                    // VIEW ERROR
+
+
+                    // HIEN BAO LOI
                     if (item.hasClass('isError')) {
-                        // Add class has-error when error is 1
-                            item.parent('.form-group').addClass('has-error');
+                        item.parent('.form-group').addClass('has-error');
                     } else {
-                        // remove Class has-error
                         item.parent('.form-group').removeClass('has-error');
                     }
+
+                    // HIEN NOTIFICATION RA THONG BAO
                     if (opts.notification) {
                         if (!$('body').find('.wserror-message').length) {
                             $('body').append(viewMessage(message));
@@ -126,6 +152,8 @@
                         }
                     }
                 });
+
+                // KHAI BAO CALLBACK
                 var callback = opts.callback;
                 if ($.isFunction(callback)) {
                     callback.call(this, error);
