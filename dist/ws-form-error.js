@@ -61,7 +61,6 @@
                             } else {
                                 message = "Please enter in fields required.";
                             }
-                            sTop(item);
                         } else {
                             item.removeClass("ws-input-error");
                         }
@@ -75,7 +74,6 @@
                             if (typeof item.data("wserror-number") !== "undefined") {
                                 message = item.data("wserror-number");
                             }
-                            sTop(item);
                         } else {
                             item.removeClass("ws-input-error");
                         }
@@ -89,7 +87,6 @@
                             if (typeof item.data("wserror-email") !== "undefined") {
                                 message = item.data("wserror-email");
                             }
-                            sTop(item);
                         } else {
                             item.removeClass("ws-input-error");
                         }
@@ -103,7 +100,6 @@
                             if (typeof item.data("wserror-phone") !== "undefined") {
                                 message = item.data("wserror-phone");
                             }
-                            sTop(item);
                         } else {
                             item.removeClass("ws-input-error");
                         }
